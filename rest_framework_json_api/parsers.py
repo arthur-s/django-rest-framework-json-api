@@ -40,10 +40,10 @@ class JSONParser(parsers.JSONParser):
         parsed_relationships = dict()
         for field_name, field_data in relationships.items():
             field_data = field_data.get('data')
-            if isinstance(field_data, dict):
-                parsed_relationships[field_name] = field_data
-            elif isinstance(field_data, list):
+            if isinstance(field_data, list):
                 parsed_relationships[field_name] = list(relation for relation in field_data)
+            else: #dict and None will be saved here
+                parsed_relationships[field_name] = field_data
         return parsed_relationships
 
     def parse(self, stream, media_type=None, parser_context=None):
